@@ -38,20 +38,16 @@ def restaurant_create(request):
 def restaurant_update(request, restaurant_id):
     restaurant = Restaurant.objects.get(id=restaurant_id)
     form = RestaurantForm(instance=restaurant)
-
-    print("Before IF Statement")
     if request.method == 'POST':
         print("Inside IF Statement")
         form = RestaurantForm(request.POST, instance=restaurant)
         if form.is_valid():
             form.save()
             return redirect('restaurant-list')
-
     context = {
         "update_restaurant": form,
         "update_id": restaurant.id,
     }
-
     return render(request, 'update.html', context)
 
 
